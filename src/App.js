@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        {user? <NavBar /> : ""}
+        {user? <NavBar userName={user.displayName} /> : ""}
         <SignOut />
       </header>
       <section>

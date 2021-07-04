@@ -1,9 +1,20 @@
 import React from "react";
 
+export default class ViewTask extends React.Component{
+  constructor(props){
+    super(props)
+    console.log("ViewTask --> Loaded")
+  }
 
-function ViewTask(props) {
+  setActive(id){
+    return{
+      
+    }
+  }
 
-    const {important, title, description, is_completed} = props.task;
+ render() {
+
+    const {important, title, description, is_completed} = this.props.task;
   
     return (
       <div>
@@ -14,7 +25,6 @@ function ViewTask(props) {
         <p>{is_completed}</p>
   
       </div>
-  )
+    )
+  }
 }
-
-export default ViewTask;
