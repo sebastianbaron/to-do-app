@@ -4,7 +4,7 @@ import NavBar from './components/NavBar';
 import TaskListView from './components/TaskListView';
 import "bootswatch/dist/vapor/bootstrap.min.css";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./db/firebase"
+import { auth, googleProvider } from "./db/firebase"
 
 /* const analytics = firebase.analytics(); */
 
@@ -30,8 +30,7 @@ function App() {
 
 function SignIn() {
   const signInWithGoogle = () => {
-    const provider = new auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    auth.signInWithPopup(googleProvider);
   }
 
     /* let SignInWithEmail = () => auth.signInWithEmailAndPassword(email.value,password.value); */
