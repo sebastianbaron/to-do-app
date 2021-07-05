@@ -1,19 +1,10 @@
 import React from 'react';
 import './App.css';
-
-import firebase from "firebase/app";
-import "firebase/firestore";
-import "firebase/auth";
-import 'firebase/analytics';
-
 import NavBar from './components/NavBar';
 import TaskListView from './components/TaskListView';
-
 import "bootswatch/dist/vapor/bootstrap.min.css";
-
 import { useAuthState } from "react-firebase-hooks/auth";
-
-const auth = firebase.auth();
+import { auth } from "./db/firebase"
 
 /* const analytics = firebase.analytics(); */
 
@@ -29,7 +20,7 @@ function App() {
         <SignOut />
       </header>
       <section>
-        {user ? <TaskListView /> : <SignIn/>}
+        {user ? <TaskListView user={user} /> : <SignIn/>}
       </section>
 
     </div>
@@ -39,7 +30,7 @@ function App() {
 
 function SignIn() {
   const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
 

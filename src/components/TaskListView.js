@@ -5,28 +5,23 @@ import "firebase/auth";
 import 'firebase/analytics';
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import ViewTask from "./ViewTask";
+import { list } from "../db/firebase"
 
 
-firebase.initializeApp({
-    apiKey: "AIzaSyBhquWo0QArDg6mXjKVFFA5VNY0BwOEUfg",
-    authDomain: "todoapp-dcd44.firebaseapp.com",
-    databaseURL: "https://todoapp-dcd44-default-rtdb.firebaseio.com",
-    projectId: "todoapp-dcd44",
-    storageBucket: "todoapp-dcd44.appspot.com",
-    messagingSenderId: "750673670319",
-    appId: "1:750673670319:web:e14f516ae66ee130ffa45a"
-  })
-  
-const firestore = firebase.firestore();
 
-function TaskListView(){
+function TaskListView(props){
+
     const dummy = useRef();
+
     const formTitle = document.getElementById("formTitle");
     const formDescription = document.getElementById("formDescription");
     const formImportant = document.getElementById("formImportant");
-    const list = firestore.collection("tasks");
+
     const query = list.orderBy("created_at").limit(25);
     const [tasks] = useCollectionData(query, {idField:"id"});
+
+    const user = props.user
+
    
     /* console.log(tasks) */
     
@@ -38,6 +33,9 @@ function TaskListView(){
         description: formDescription.value,
         important: formImportant.checked,
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        is_completed: false,
+        is_active: true,
+        created_by: user.uid
       })
   
       dummy.current.scrollIntoView({ behavior: "smooth"});
