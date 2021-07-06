@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import NavBar from './components/NavBar';
+import {NavBar} from './components/NavBar';
 import TaskListView from './components/TaskListView';
 import "bootswatch/dist/vapor/bootstrap.min.css";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -16,8 +16,8 @@ function App() {
   return (
     <div className="App">
       <header>
-        {user? <NavBar userName={user.displayName} /> : ""}
-        <SignOut />
+        {user? <NavBar userName={user.email} signOut={<SignOut />} />: ""}
+        
       </header>
       <section>
         {user ? <TaskListView user={user} /> : <SignIn/>}
@@ -28,36 +28,31 @@ function App() {
 }
 
 
+async function signInWithUsernameAndPassword() {
+  const email = document.getElementById("formEmail").value;
+  const password = document.getElementById("formPassword").value;
+  await auth.signInWithEmailAndPassword(email,password);
+}
+
 function SignIn() {
-  const signInWithGoogle = () => {
-    auth.signInWithPopup(googleProvider);
-  }
-
-    /* let SignInWithEmail = () => auth.signInWithEmailAndPassword(email.value,password.value); */
-
-
   
-  return (
-    <>
-    {/* <div className="not-signed-in">
-      <form onSubmit={SignIn()}>
-      <div>
-        <label htmlFor="loginEmail">Email</label>
-        <input  id="loginEmail" type="text"/>
-        <label htmlFor="loginPassword">Password</label>
-        <input  id="loginPassword" type="password"/> */}
-        <button className="sign-in btn btn-outline-secondary" onClick={signInWithGoogle} >Sign in</button>
-        <p className="mt-3 text-secondary">Please sign in with your google account.</p>
-   {/*    </div>
-      </form>
-    </div> */}
+  return ( 
+    <> 
+    <div className="">
+        <label htmlFor="formEmail">Email</label>
+        <input type="email" id="formEmail" />
+        <label htmlFor="formPassword">Password</label>
+        <input type="password" id="formPassword" />
+      </div>
+        <button className="sign-in btn btn-outline-secondary" onClick={() => signInWithUsernameAndPassword()}>Sign in</button>
+        <p className="mt-3 text-secondary">Please enter email and password.</p>
     </>
     )
   }
     
 function SignOut() {
   return auth.currentUser && (
-    <button className="sign-out " onClick={() => auth.signOut()}>Sign Out</button>
+    <button className="btn btn-dark logout-button" onClick={() => auth.signOut()}>Sign Out</button>
     )
 }
           

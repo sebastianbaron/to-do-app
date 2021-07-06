@@ -26,16 +26,26 @@ export default class ViewTask extends React.Component{
     const {important, title, description, is_completed, id} = this.props.task;
   
     return (
-      <div>
+      /*{ <div>
         <h1>{title}</h1>
         <p>{important}</p>
         <p>{description}</p>
-        {/* <p>{created_at}</p> */}
         <p>{is_completed}</p>
         <p>{id}</p>
+        
+      </div> } */
+      <>
+      <div className="card text-white bg-primary mb-3">
+      <div className="card-header">{`Task id = ${id}`}</div>
+      <div className="card-body">
+        <h4 className="card-title">{title}</h4>
+        <p className="card-text">{description}</p>
+        <p>{important? "Yes" : "No" }</p>
         <a class="m-2" onClick={()=> this.setCompleted(id)}>setCompleted</a>
         <a class="m-2" onClick={()=> this.setDeleted(id)}>setDeleted</a>
       </div>
+    </div>
+    </>
     )
   }
 }

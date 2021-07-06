@@ -12,15 +12,14 @@ import { list } from "../db/firebase"
 function TaskListView(props){
 
     const dummy = useRef();
-
+    const user = props.user
     const formTitle = document.getElementById("formTitle");
     const formDescription = document.getElementById("formDescription");
     const formImportant = document.getElementById("formImportant");
-
-    const query = list.orderBy("created_at").limit(25);
+    const query = list.where("created_by", "==", user.uid).where("is_active", "==", true).where("is_completed", "==", false)
     const [tasks] = useCollectionData(query, {idField:"id"});
 
-    const user = props.user
+    
 
    
     /* console.log(tasks) */
@@ -38,20 +37,23 @@ function TaskListView(props){
         created_by: user.uid
       })
   
-      dummy.current.scrollIntoView({ behavior: "smooth"});
-  
       formTitle.value = ""
       formDescription.value = ""
       formImportant.checked = false
   }
+
+  const scrollIntoView = ()=>{
+    dummy.current.scrollIntoView({ behavior: "smooth"})
+  }
+
   return(
 <main>
     {tasks && tasks.map(task => <ViewTask key={task.id} task={task} />)}
-    <div className="form-anchor-shortcut">
-        <button>blabla</button>
+    <div ref={dummy} className="form-anchor-shortcut">
+        <button className="btn btn-secondary" onClick={()=>scrollIntoView()}>New</button>
     </div>
     <span ref={dummy}></span>
-    <form onSubmit={setTask} className="col-8 m-auto">
+    <form onSubmit={setTask}>
     <div className="form-group">
         <label htmlFor="formTitle" className="form-label mt-4">Title</label>
         <input type="text" className="form-control" id="formTitle" aria-describedby="emailHelp" placeholder="Enter title"></input>
