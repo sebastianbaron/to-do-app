@@ -48,7 +48,9 @@ function TaskListView(props){
 
   return(
 <main>
+    <div className="row cardGrid">
     {tasks && tasks.map(task => <ViewTask key={task.id} task={task} />)}
+    </div>
     <div ref={dummy} className="form-anchor-shortcut">
         <button className="btn btn-secondary" onClick={()=>scrollIntoView()}>New</button>
     </div>

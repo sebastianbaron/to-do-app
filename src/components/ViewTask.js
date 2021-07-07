@@ -23,7 +23,7 @@ export default class ViewTask extends React.Component{
 
  render() {
      
-    const {important, title, description, is_completed, id} = this.props.task;
+    const {important, title, description, id} = this.props.task;
   
     return (
       /*{ <div>
@@ -35,14 +35,16 @@ export default class ViewTask extends React.Component{
         
       </div> } */
       <>
-      <div className="card text-white bg-primary mb-3">
-      <div className="card-header">{`Task id = ${id}`}</div>
+      <div className={important? "col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 card border-warning m-3": "col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 card border-light m-3"}>
+      <div className="card-header">
+        <p>{`Task id = ${id}`}</p>
+        <button href="#" className="m-2 btn btn-secondary" onClick={()=> this.setDeleted(id)}>X</button>
+      </div>
       <div className="card-body">
         <h4 className="card-title">{title}</h4>
         <p className="card-text">{description}</p>
         <p>{important? "Yes" : "No" }</p>
-        <a class="m-2" onClick={()=> this.setCompleted(id)}>setCompleted</a>
-        <a class="m-2" onClick={()=> this.setDeleted(id)}>setDeleted</a>
+        <button href="#" className="m-2 btn btn-secondary" onClick={()=> this.setCompleted(id)}>setCompleted</button>    
       </div>
     </div>
     </>

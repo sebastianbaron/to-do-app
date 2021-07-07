@@ -32,20 +32,42 @@ body{
 
 section{
   margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.cardGrid {
+  display:flex;
+  justify-content: space-evenly;
+  
+  /* flex-direction: row; */
+  /* grid-template-columns: auto auto auto; */
+  /* justify-content: space-around; */
 }
 .card{
-  max-width: 70vw;
-  margin: 0 auto;
+  min-width: 20vw;
+  max-width: 25vw;
+  transition: width 800ms;
+  
+  
+}
+
+.card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items: center;
+  margin: 0;
 }
 form{
   margin: 0 auto;
   max-width: 70vw;
 }
-@media (max-width: 1024px){
+/* @media (max-width: 1024px){
   .card{
     max-width: 95vw;
+    min-width: 25vw;
   }
   form{
     max-width: 95vw;
+    min-width: 25vw;
   }
-}
+} */

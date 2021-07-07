@@ -4,7 +4,7 @@ import {NavBar} from './components/NavBar';
 import TaskListView from './components/TaskListView';
 import "bootswatch/dist/vapor/bootstrap.min.css";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, googleProvider } from "./db/firebase"
+import { auth } from "./db/firebase"
 
 /* const analytics = firebase.analytics(); */
 

@@ -5,9 +5,9 @@ export const NavBar = (props) =>{
   let {signOut} = props
   return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <a className="navbar-brand">Welcome to Task View</a>
-          <a className="navbar-brand">Logged in as {userName}{signOut}</a>
+        <div className="container-fluid mt-3">
+          <p className="navbar-brand">Welcome {userName}!</p>
+           <p>{signOut}</p>
         </div>
       </nav>
   )
