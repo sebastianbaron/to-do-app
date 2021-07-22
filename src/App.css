@@ -1,11 +1,12 @@
-body{
-  height: 100%;
+html, body{
+  margin: 0;
+  padding: 0;
+  min-height:100%;
 }
 .App {
   text-align: center;
 }
 .not-signed-in{
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +31,7 @@ section{
 }
 .card{
   min-width: 20vw;
-  transition: width 800ms;
+  transition: width 800ms, transform .5s;
 }
 .card-header{
   display:flex;
@@ -54,4 +55,13 @@ form{
 
 #formImportant{
   margin:auto 0;
+}
+
+.class-transform:hover{
+    transform: scale(1.05)
+} 
+
+#loginForm{
+  width:100%;
+  margin-top:20vh;
 }

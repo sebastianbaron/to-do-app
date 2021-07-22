@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {NavBar} from './components/NavBar';
+import { NavBar } from './components/NavBar';
 import TaskListView from './components/TaskListView';
 import "bootswatch/dist/vapor/bootstrap.min.css";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -37,8 +37,8 @@ async function signInWithUsernameAndPassword() {
 function SignIn() {
   
   return ( 
-    <> 
-    <div className="">
+    <div> 
+    <div id="loginForm">
         <label htmlFor="formEmail">Email</label>
         <input type="email" id="formEmail" />
         <label htmlFor="formPassword">Password</label>
@@ -46,7 +46,7 @@ function SignIn() {
       </div>
         <button className="sign-in btn btn-outline-secondary" onClick={() => signInWithUsernameAndPassword()}>Sign in</button>
         <p className="mt-3 text-secondary">Please enter email and password.</p>
-    </>
+    </div>
     )
   }
     
