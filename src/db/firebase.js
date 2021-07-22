@@ -4,13 +4,12 @@ import "firebase/auth";
 import 'firebase/analytics';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBhquWo0QArDg6mXjKVFFA5VNY0BwOEUfg",
-    authDomain: "todoapp-dcd44.firebaseapp.com",
-    databaseURL: "https://todoapp-dcd44-default-rtdb.firebaseio.com",
-    projectId: "todoapp-dcd44",
-    storageBucket: "todoapp-dcd44.appspot.com",
-    messagingSenderId: "750673670319",
-    appId: "1:750673670319:web:e14f516ae66ee130ffa45a"
+    apiKey: "AIzaSyAxRA-gU-OuPgF8Y9_1oKfJ3b904aNOHy8",
+    authDomain: "todoapp-public.firebaseapp.com",
+    projectId: "todoapp-public",
+    storageBucket: "todoapp-public.appspot.com",
+    messagingSenderId: "937363009797",
+    appId: "1:937363009797:web:f6c991c94a8a10f145876c"
   }
 
 
@@ -22,7 +21,7 @@ const db = firebase.firestore();
 //initiating references to the databases
 const list = db.collection('tasks')
 
-// for privileges purposes
+//for privileges purposes
 
 
 //google provider sign-in

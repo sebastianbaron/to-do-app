@@ -65,11 +65,11 @@ function TaskListView(props){
         <label htmlFor="formDescription" className="form-label mt-4">Description</label>
         <textarea className="form-control" id="formDescription" rows="3" placeholder="Enter task"></textarea>
     </div>
-    <div>
-        <label htmlFor="formImportant" className="form-label mt-4">Important?</label>
+    <div id="div-important">
+        <label htmlFor="formImportant" className="form-label">Is this an important task?</label>
         <input className="form-check-input" type="checkbox" value="" id="formImportant" />
     </div>
-    <button type="submit" className="btn btn-primary">Submit</button>
+    <button type="submit" className="btn btn-secondary">Create</button>
     </form>
 </main>
     )
