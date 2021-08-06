@@ -13,7 +13,7 @@ const firebaseConfig = {
   }
 
 
-firebase.initializeApp(firebaseConfig);
+const fire = firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -28,4 +28,4 @@ const list = db.collection('tasks')
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 
-export { db, auth, googleProvider, list }
+export { fire, db, auth, googleProvider, list }

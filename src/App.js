@@ -1,60 +1,88 @@
-import React from 'react';
-import './App.css';
-import { NavBar } from './components/NavBar';
-import TaskListView from './components/TaskListView';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { NavBar } from "./components/NavBar";
+import TaskListView from "./components/TaskListView";
 import "bootswatch/dist/vapor/bootstrap.min.css";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./db/firebase"
+import { fire } from "./db/firebase"
+import Login from "./components/Login"
 
-/* const analytics = firebase.analytics(); */
+const App = () => {
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [hasAccount, setHasAccount] = useState(false);
 
-function App() {
-  
-  const [user] = useAuthState(auth);
-  console.log(user)
+  const clearInputs = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  const clearErrors = () => {
+    setEmailError("");
+    setPasswordError("");
+  };
+
+  const handleLogin = () => {
+    clearErrors();
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+  const handleLogout = () => {
+    fire.auth().signOut();
+  };
+
+  const authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        clearInputs();
+        setUser(user);
+      } else {
+        setUser("");
+      }
+    });
+  };
+
+  useEffect(() => {
+    authListener()
+  },[])
 
   return (
     <div className="App">
-      <header>
-        {user? <NavBar userName={user.email} signOut={<SignOut />} />: ""}
-        
-      </header>
-      <section>
-        {user ? <TaskListView user={user} /> : <SignIn/>}
-      </section>
-
+      {user ? 
+      <TaskListView 
+        user={user} 
+        handleLogout={handleLogout} 
+      /> 
+      : 
+      <Login
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+        /* handleSignup={handleSignup} */
+        hasAccount={hasAccount}
+        setHasAccount={setHasAccount}
+        emailError={emailError}
+        passwordError={passwordError} />}
     </div>
   );
-}
+};
 
-
-async function signInWithUsernameAndPassword() {
-  const email = document.getElementById("formEmail").value;
-  const password = document.getElementById("formPassword").value;
-  await auth.signInWithEmailAndPassword(email,password);
-}
-
-function SignIn() {
-  
-  return ( 
-    <div> 
-    <div id="loginForm">
-        <label htmlFor="formEmail">Email</label>
-        <input type="email" id="formEmail" />
-        <label htmlFor="formPassword">Password</label>
-        <input type="password" id="formPassword" />
-      </div>
-        <button className="sign-in btn btn-outline-secondary" onClick={() => signInWithUsernameAndPassword()}>Sign in</button>
-        <p className="mt-3 text-secondary">Please enter email and password.</p>
-    </div>
-    )
-  }
-    
-function SignOut() {
-  return auth.currentUser && (
-    <button className="btn btn-dark logout-button" onClick={() => auth.signOut()}>Sign Out</button>
-    )
-}
-          
 export default App;
-          
