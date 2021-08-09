@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { NavBar } from "./components/NavBar";
 import TaskListView from "./components/TaskListView";
 import "bootswatch/dist/vapor/bootstrap.min.css";
 import { fire } from "./db/firebase"
 import Login from "./components/Login"
+import LoadingScreen from "./components/LoadingScreen"
+
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -13,6 +14,7 @@ const App = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const clearInputs = () => {
     setEmail("");
@@ -39,8 +41,9 @@ const App = () => {
           case "auth/wrong-password":
             setPasswordError(err.message);
             break;
-        }
-      });
+        }       
+      }
+      );
   };
 
   const handleLogout = () => {
@@ -51,9 +54,11 @@ const App = () => {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         clearInputs();
-        setUser(user);
+        setUser(user); 
+        setIsLoaded(true)
       } else {
-        setUser("");
+        setUser(null);
+        setIsLoaded(true)
       }
     });
   };
@@ -64,13 +69,15 @@ const App = () => {
 
   return (
     <div className="App">
-      {user ? 
-      <TaskListView 
+
+      {isLoaded === false? (<LoadingScreen />) : 
+      user !== null? 
+      (<TaskListView 
         user={user} 
         handleLogout={handleLogout} 
-      /> 
+      /> )
       : 
-      <Login
+      (<Login
         email={email}
         setEmail={setEmail}
         password={password}
@@ -80,8 +87,9 @@ const App = () => {
         hasAccount={hasAccount}
         setHasAccount={setHasAccount}
         emailError={emailError}
-        passwordError={passwordError} />}
+        passwordError={passwordError} />)}
     </div>
+
   );
 };
 

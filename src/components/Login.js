@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/login.css"
 
 const Login = (props) => {
 
@@ -16,10 +17,10 @@ const Login = (props) => {
       } = props;
         
     return (
-      <main>
+      <main id="loginMain">
         <div id="loginRow" className="row">
           <div className="col-md-6">
-            <div id="loginCard" className="card">
+            <div id="loginCard">
               <div className="box">
                 <h1>Login</h1>
                 <p className="text-muted">

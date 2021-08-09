@@ -27,7 +27,6 @@ const TaskListView = (props) => {
     e.preventDefault();
 
     await list.add({
-      title: formTitle.value,
       description: formDescription.value,
       important: formImportant.checked,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
@@ -36,7 +35,6 @@ const TaskListView = (props) => {
       created_by: user.uid,
     });
 
-    formTitle.value = "";
     formDescription.value = "";
     formImportant.checked = false;
   };
@@ -50,7 +48,7 @@ const TaskListView = (props) => {
     
     <main>
     <NavBar userName={user.displayName} handleLogout={handleLogout}/>
-      <div className="row cardGrid">
+      <div className="row cardGrid m-0">
         {tasks && tasks.map((task) => <ViewTask key={task.id} task={task} />)}
       </div>
       <div ref={dummy} className="form-anchor-shortcut">
@@ -59,8 +57,8 @@ const TaskListView = (props) => {
         </button>
       </div>
       <span ref={dummy}></span>
-      <form onSubmit={setTask}>
-        <div className="form-group">
+      <form onSubmit={setTask} className="col-11 col-xl-8 class-transition">
+        {/* <div className="form-group">
           <label htmlFor="formTitle" className="form-label mt-4">
             Title
           </label>
@@ -71,22 +69,22 @@ const TaskListView = (props) => {
             aria-describedby="emailHelp"
             placeholder="Enter title"
           ></input>
-        </div>
+        </div> */}
 
         <div className="form-group">
           <label htmlFor="formDescription" className="form-label mt-4">
-            Description
+            Create new task
           </label>
           <textarea
             className="form-control"
             id="formDescription"
-            rows="3"
+            rows="1"
             placeholder="Enter task"
           ></textarea>
         </div>
         <div id="div-important">
-          <label htmlFor="formImportant" className="form-label">
-            Is this an important task?
+          <label htmlFor="formImportant" className="form-label ">
+            Mark as important
           </label>
           <input
             className="form-check-input"
